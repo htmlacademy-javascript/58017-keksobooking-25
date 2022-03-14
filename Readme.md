@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Никита Дудкевич](https://up.htmlacademy.ru/javascript/25/user/58017).
-* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
+* Наставник: [Павел Лукин](https://htmlacademy.ru/profile/id1313529).
 
 ---
 
