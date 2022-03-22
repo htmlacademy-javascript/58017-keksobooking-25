@@ -35,17 +35,6 @@ const PHOTOS = [
 
 const SIMILAR_USER_COUNT = 10;
 
-const getAvatarUrls = (count = SIMILAR_USER_COUNT) => {
-  const result = [];
-  const userCountLength = count.toString().length;
-  for (let i = 1; i <= count; i++) {
-    result.push(`img/avatars/user${i.toString().padStart(userCountLength, '0')}.png`);
-  }
-  return result;
-};
-
-const arrayAvatarUrls = getAvatarUrls();
-
 function getRandomPositiveInteger(a, b) {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -53,10 +42,7 @@ function getRandomPositiveInteger(a, b) {
   return Math.floor(result);
 }
 
-const getRandomArrayElement = (elements) => {
-  const randomNum = getRandomPositiveInteger(0, elements.length - 1);
-  return elements[randomNum];
-};
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
 function getRandomPositiveFloat(a, b, digits = 1) {
   const lower = Math.min(Math.abs(a), Math.abs(b));
@@ -65,25 +51,22 @@ function getRandomPositiveFloat(a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
-function shuffle(array) {
+const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
-}
-
-const getFeaturesLength = (arr) => {
-  const randomLength = getRandomPositiveInteger(1, arr.length);
-  return randomLength;
 };
+
+const getFeaturesLength = (arr) => getRandomPositiveInteger(1, arr.length);
 
 const createUser = (index) => {
   const locationLat = getRandomPositiveFloat(35.65000, 35.70000, 5);
   const locationLng = getRandomPositiveFloat(139.70000, 139.80000, 5);
   return {
     author: {
-      avatar: arrayAvatarUrls[index],
+      avatar: `img/avatars/user${index.toString().padStart(2, 0)}.png`,
     },
     offer: {
       title: 'Наше предложение',
@@ -105,6 +88,6 @@ const createUser = (index) => {
   };
 };
 
-const createUsers = Array.from({length: SIMILAR_USER_COUNT},(_, index) => createUser(index));
+const createUsers = () => Array.from({length: SIMILAR_USER_COUNT},(_, index) => createUser(index + 1));
 
-console.log(createUsers);
+createUsers();
