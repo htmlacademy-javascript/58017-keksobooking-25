@@ -1,3 +1,2 @@
-import {createUsers} from './data';
-
-createUsers();
+import './data.js';
+import './popup.js';
