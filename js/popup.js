@@ -9,16 +9,24 @@ const similarUsers = createUsers();
 
 const similarListFragment = document.createDocumentFragment();
 
-similarUsers.forEach(({author, offer}) => {
+const addElementsPopup = ({author, offer}) => {
   const userElement = similarUserTemplate.cloneNode(true);
-  userElement.querySelector('.popup__avatar').src = author.avatar;
-  userElement.querySelector('.popup__title').textContent = offer.title;
-  userElement.querySelector('.popup__text--address').textContent = offer.address;
-  userElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-  userElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} + комнаты для + ${offer.guests} + гостей`;
-  userElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  userElement.querySelector('.popup__description').textContent = offer.description;
-  userElement.querySelector('.popup__photo').src = offer.photos;
+  const setElementValue = (selector, attribute, value) => {
+    const element = userElement.querySelector(selector);
+    if (value) {
+      element[attribute] = value;
+    } else {
+      element.classList.add('hidden');
+    }
+  };
+  setElementValue('.popup__avatar', 'src', author.avatar);
+  setElementValue('.popup__title', 'textContent', offer.title);
+  setElementValue('.popup__text--address', 'textContent', offer.address);
+  setElementValue('.popup__text--price', 'textContent', `${offer.price} ₽/ночь`);
+  setElementValue('.popup__text--capacity', 'textContent', `${offer.rooms} комнаты для ${offer.guests} гостей`);
+  setElementValue('.popup__text--time', 'textContent', `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
+  setElementValue('.popup__description', 'textContent', offer.description);
+  setElementValue('.popup__photo', 'src', offer.photos);
   const housingType = {
     flat: 'Квартира',
     bungalow: 'Бунгало',
@@ -26,7 +34,7 @@ similarUsers.forEach(({author, offer}) => {
     palace: 'Дворец',
     hotel: 'Отель',
   };
-  userElement.querySelector('.popup__type').textContent = housingType[offer.type];
+  setElementValue('.popup__type', 'textContent', housingType[offer.type]);
   const featuresContainer = userElement.querySelector('.popup__features');
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
   featuresList.forEach((featuresListItem) => {
@@ -39,6 +47,8 @@ similarUsers.forEach(({author, offer}) => {
     }
   });
   similarListFragment.append(userElement);
-});
+};
+
+
 
 similarListElement.append(similarListFragment);
