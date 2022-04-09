@@ -1,3 +1,10 @@
 import './data.js';
 import './popup.js';
-import './form.js';
+import {
+  disableForm,
+  enableForm
+} from './form.js';
+
+disableForm();
+
+enableForm();
