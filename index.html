@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="nouislider/nouislider.css">
+  <link rel="stylesheet" href="leaflet/leaflet.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кексобукинг</title>
@@ -116,8 +118,8 @@
             <option value="14:00">После 14</option>
           </select>
           <select id="timeout" name="timeout" title="Time to go out">
-            <option value="12:00">Выезд до 12</option>
-            <option value="13:00" selected>Выезд до 13</option>
+            <option value="12:00" selected>Выезд до 12</option>
+            <option value="13:00">Выезд до 13</option>
             <option value="14:00">Выезд до 14</option>
           </select>
         </fieldset>
@@ -231,6 +233,8 @@
     </div>
   </template>
 
+  <script src="/leaflet/leaflet.js"></script>
+  <script src="/nouislider/nouislider.js"></script>
   <script src="/pristine/pristine.min.js"></script>
   <script src="/js/main.js" type="module"></script>
 

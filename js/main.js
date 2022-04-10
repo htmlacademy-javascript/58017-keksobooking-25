@@ -4,7 +4,20 @@ import {
   disableForm,
   enableForm
 } from './form.js';
+import './slider.js';
+import {
+  map,
+} from './map.js';
+import './reset-form.js';
+
+// disableForm();
+
+// map.on('load', () => {
+//   enableForm();
+// });
 
 disableForm();
 
-enableForm();
+// map.on('load', () => {
+//   enableForm();
+// });
