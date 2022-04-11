@@ -41,7 +41,7 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const SIMILAR_USER_COUNT = 1;
+const SIMILAR_USER_COUNT = 5;
 
 const createUser = (index) => {
   const locationLat = getRandomPositiveFloat(35.65000, 35.70000, 5);
