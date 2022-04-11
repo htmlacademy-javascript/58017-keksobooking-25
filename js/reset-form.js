@@ -19,7 +19,7 @@ resetButton.addEventListener('click', () => {
   map.setView({
     lat: startLat,
     lng: startLtg,
-  }, 15);
+  }, 13);
   sliderElement.noUiSlider.set(1000);
   address.value = `Широта ${startLat.toFixed(5)} Долгота ${startLtg.toFixed(5)}`;
 });

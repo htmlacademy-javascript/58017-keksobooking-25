@@ -1,15 +1,12 @@
+import {
+  similarUsers,
+  addElementsPopup,
+} from './popup.js';
+
 const startLat = 35.68218;
 const startLtg = 139.75358;
 
-const map = L.map('map-canvas')
-  .setView({
-    lat: startLat,
-    lng: startLtg,
-  }, 15);
-
-map.on('load', () => {
-  console.log('text');
-});
+const map = L.map('map-canvas');
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -44,33 +41,30 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `Широта ${getLatLng.lat.toFixed(5)} Долгота ${getLatLng.lng.toFixed(5)}`;
 });
 
-const icon = L.icon({
+const COMMON_ICON = {
   iconUrl: './img/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
-});
+};
 
-// const createCustomPopup = (point) => {
-//   const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
-//   const popupElement = balloonTemplate.cloneNode(true);
+const makePin = (card, popUpCollback) => {
+  const marker = L.marker(
+    [card.location.lat, card.location.lng], {
+      icon: L.icon({
+        iconUrl: COMMON_ICON.iconUrl,
+        iconSize: COMMON_ICON.iconSize,
+        iconAnchor: COMMON_ICON.iconAnchor,
+      }),
+      draggable: false
+    }
+  );
+  marker.addTo(map);
+  marker.bindPopup(() => popUpCollback(card));
+};
 
-//   popupElement.querySelector('.popup__title').textContent = point.title;
-//   popupElement.querySelector('.popup__text--address').textContent = `Координаты: ${point.lat}, ${point.lng}`;
-// };
+const setMarkers = (cards, popUpCollback) => cards.forEach((card) => makePin(card, popUpCollback));
 
-// points.forEach((point) => {
-//   const {lat, lng} = point;
-//   const marker = L.marker({
-//     lat,
-//     lng,
-//   }, {
-//     icon,
-//   }, );
-
-//   marker
-//     .addTo(map)
-//     .bindPopup(createCustomPopup(point));
-// });
+setMarkers(similarUsers, addElementsPopup);
 
 export {
   mainPinMarker,

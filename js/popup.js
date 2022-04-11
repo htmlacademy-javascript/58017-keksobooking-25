@@ -1,16 +1,15 @@
-import {createUsers} from './data.js';
+import {
+  createUsers,
+} from './data.js';
 
-const similarListElement = document.querySelector('#map-canvas');
 const similarUserTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
 const similarUsers = createUsers();
 
-const similarListFragment = document.createDocumentFragment();
-
-const setElementValue = (selector, attribute, value) => {
-  const element = userElement.querySelector(selector);
+const setElementValue = (selector, attribute, value, elem) => {
+  const element = elem.querySelector(selector);
   if (value) {
     element[attribute] = value;
   } else {
@@ -28,15 +27,15 @@ const housingType = {
 
 const addElementsPopup = ({author, offer}) => {
   const userElement = similarUserTemplate.cloneNode(true);
-  setElementValue('.popup__avatar', 'src', author.avatar);
-  setElementValue('.popup__title', 'textContent', offer.title);
-  setElementValue('.popup__text--address', 'textContent', offer.address);
-  setElementValue('.popup__text--price', 'textContent', `${offer.price} ₽/ночь`);
-  setElementValue('.popup__text--capacity', 'textContent', `${offer.rooms} комнаты для ${offer.guests} гостей`);
-  setElementValue('.popup__text--time', 'textContent', `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
-  setElementValue('.popup__description', 'textContent', offer.description);
-  setElementValue('.popup__photo', 'src', offer.photos);
-  setElementValue('.popup__type', 'textContent', housingType[offer.type]);
+  setElementValue('.popup__avatar', 'src', author.avatar, userElement);
+  setElementValue('.popup__title', 'textContent', offer.title, userElement);
+  setElementValue('.popup__text--address', 'textContent', offer.address, userElement);
+  setElementValue('.popup__text--price', 'textContent', `${offer.price} ₽/ночь`, userElement);
+  setElementValue('.popup__text--capacity', 'textContent', `${offer.rooms} комнаты для ${offer.guests} гостей`, userElement);
+  setElementValue('.popup__text--time', 'textContent', `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`, userElement);
+  setElementValue('.popup__description', 'textContent', offer.description, userElement);
+  setElementValue('.popup__photo', 'src', offer.photos, userElement);
+  setElementValue('.popup__type', 'textContent', housingType[offer.type], userElement);
   const featuresContainer = userElement.querySelector('.popup__features');
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
   featuresList.forEach((featuresListItem) => {
@@ -48,7 +47,8 @@ const addElementsPopup = ({author, offer}) => {
       featuresListItem.remove();
     }
   });
-  similarListFragment.append(userElement);
+
+  return userElement;
 };
 
-similarListElement.append(similarListFragment);
+export {similarUsers, addElementsPopup};

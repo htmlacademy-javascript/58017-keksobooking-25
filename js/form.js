@@ -10,6 +10,8 @@ const enableForm = () => {
   elements.forEach((element) => element.removeAttribute('disabled', 'disabled'));
 };
 
+disableForm();
+
 const form = document.querySelector('.ad-form');
 
 const pristine = new Pristine (form, {
