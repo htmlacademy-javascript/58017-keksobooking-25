@@ -1,12 +1,6 @@
-import {
-  createUsers,
-} from './data.js';
-
 const similarUserTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
-
-const similarUsers = createUsers();
 
 const setElementValue = (selector, attribute, value, elem) => {
   const element = elem.querySelector(selector);
@@ -40,7 +34,7 @@ const addElementsPopup = ({author, offer}) => {
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
   featuresList.forEach((featuresListItem) => {
     const isNecessary = offer.features.some(
-      (feature) => featuresListItem.classList.contains(`popup__feature--${feature}`),
+      (feature) =>  featuresListItem.classList.contains(`popup__feature--${feature}`),
     );
 
     if (!isNecessary) {
@@ -51,4 +45,4 @@ const addElementsPopup = ({author, offer}) => {
   return userElement;
 };
 
-export {similarUsers, addElementsPopup};
+export {addElementsPopup};
