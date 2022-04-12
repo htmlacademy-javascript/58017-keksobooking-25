@@ -1,3 +1,6 @@
+import { sendData } from './api.js';
+import { showErrorMessage } from './util.js';
+
 const disableForm = () => {
   document.querySelector('.map__filters').classList.add('map__filters--disabled');
   const elements = document.querySelectorAll('.map__filter, .map__checkbox, .ad-form__element');
@@ -109,12 +112,41 @@ checkOut.addEventListener('change', () => {
   checkIn.value = checkOut.value;
 });
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const submitButton = form.querySelector('#submit');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Сохраняю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Сохранить';
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unblockSubmitButton();
+        },
+        () => {
+          showErrorMessage('123');
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
 
 export {
+  setUserFormSubmit,
   disableForm,
   enableForm
 };

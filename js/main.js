@@ -1,19 +1,20 @@
-import './data.js';
 import {
   addElementsPopup,
 } from './popup.js';
 import {
   disableForm,
+  setUserFormSubmit,
   enableForm,
 } from './form.js';
 import './slider.js';
+import {showErrorMessage} from './util.js';
 import {
   map,
   startLat,
   startLtg,
   setMarkers,
 } from './map.js';
-import './reset-form.js';
+import {resetButton} from './reset-form.js';
 import {
   getData,
   sendData,
@@ -30,6 +31,9 @@ map.on('load', () => {
 
 getData(
   (cards) => {
-    setMarkers(cards, addElementsPopup);
-  }
+    setMarkers(cards.slice(0, 10), addElementsPopup);
+  },
+  showErrorMessage('123'),
 );
+
+setUserFormSubmit(resetButton);

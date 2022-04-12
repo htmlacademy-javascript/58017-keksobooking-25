@@ -33,13 +33,24 @@ const addElementsPopup = ({author, offer}) => {
   const featuresContainer = userElement.querySelector('.popup__features');
   const featuresList = featuresContainer.querySelectorAll('.popup__feature');
   featuresList.forEach((featuresListItem) => {
-    const isNecessary = offer.features.some(
-      (feature) =>  featuresListItem.classList.contains(`popup__feature--${feature}`),
-    );
+    if (offer.features === undefined) {
+      featuresListItem.classList.add('hidden');
+    } else {
+      const isNecessary = offer.features.some(
+        (feature) => featuresListItem.classList.contains(`popup__feature--${feature}`),
+      );
 
-    if (!isNecessary) {
-      featuresListItem.remove();
+      if (!isNecessary) {
+        featuresListItem.remove();
+      }
     }
+    // const isNecessary = offer.features.some(
+    //   (feature) => featuresListItem.classList.contains(`popup__feature--${feature}`),
+    // );
+
+    // if (!isNecessary) {
+    //   featuresListItem.remove();
+    // }
   });
 
   return userElement;
