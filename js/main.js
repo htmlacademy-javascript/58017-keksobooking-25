@@ -9,6 +9,7 @@ import {
 import './slider.js';
 import {
   showErrorMessage,
+  showAlert,
   showSuccessMessage,
 } from './util.js';
 import {
@@ -17,7 +18,7 @@ import {
   startLtg,
   setMarkers,
 } from './map.js';
-import {resetButton} from './reset-form.js';
+import './reset-form.js';
 import {
   getData
 } from './api.js';
@@ -35,7 +36,7 @@ getData(
   (cards) => {
     setMarkers(cards.slice(0, 10), addElementsPopup);
   },
-  showErrorMessage,
+  showAlert('Не удалось загрузить данные с сервера'),
 );
 
 setUserFormSubmit(showSuccessMessage);

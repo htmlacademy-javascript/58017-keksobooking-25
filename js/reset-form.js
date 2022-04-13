@@ -23,5 +23,3 @@ resetButton.addEventListener('click', () => {
   sliderElement.noUiSlider.set(1000);
   address.value = `Широта ${startLat.toFixed(5)} Долгота ${startLtg.toFixed(5)}`;
 });
-
-export {resetButton};
