@@ -8,7 +8,6 @@ import {
 } from './form.js';
 import './slider.js';
 import {
-  showErrorMessage,
   showAlert,
   showSuccessMessage,
 } from './util.js';
