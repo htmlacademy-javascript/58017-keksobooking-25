@@ -7,7 +7,10 @@ import {
   enableForm,
 } from './form.js';
 import './slider.js';
-import {showErrorMessage} from './util.js';
+import {
+  showErrorMessage,
+  showSuccessMessage,
+} from './util.js';
 import {
   map,
   startLat,
@@ -16,8 +19,7 @@ import {
 } from './map.js';
 import {resetButton} from './reset-form.js';
 import {
-  getData,
-  sendData,
+  getData
 } from './api.js';
 
 disableForm();
@@ -33,7 +35,7 @@ getData(
   (cards) => {
     setMarkers(cards.slice(0, 10), addElementsPopup);
   },
-  showErrorMessage('123'),
+  showErrorMessage,
 );
 
-setUserFormSubmit(resetButton);
+setUserFormSubmit(showSuccessMessage);

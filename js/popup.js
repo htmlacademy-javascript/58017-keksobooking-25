@@ -44,13 +44,6 @@ const addElementsPopup = ({author, offer}) => {
         featuresListItem.remove();
       }
     }
-    // const isNecessary = offer.features.some(
-    //   (feature) => featuresListItem.classList.contains(`popup__feature--${feature}`),
-    // );
-
-    // if (!isNecessary) {
-    //   featuresListItem.remove();
-    // }
   });
 
   return userElement;
