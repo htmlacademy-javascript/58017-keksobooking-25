@@ -1,3 +1,6 @@
+import { sendData } from './api.js';
+import { showErrorMessage } from './util.js';
+
 const disableForm = () => {
   document.querySelector('.map__filters').classList.add('map__filters--disabled');
   const elements = document.querySelectorAll('.map__filter, .map__checkbox, .ad-form__element');
@@ -56,9 +59,9 @@ const housingType = {
   }
 };
 
-const validationAmount = (value) => {
+const validationAmount = () => {
   const housingTypeElement = type.value;
-  return value >= housingType[housingTypeElement].min && value <= housingType[housingTypeElement].max;
+  return amountField.value >= housingType[housingTypeElement].min && amountField.value <= housingType[housingTypeElement].max;
 };
 
 const getAmountErrorMessage = () => {
@@ -80,19 +83,24 @@ type.addEventListener('change', onTypeChange);
 const guestsField = form.querySelector('#room_number');
 const roomsField = form.querySelector('#capacity');
 const placementOptions = {
-  '1 комната': ['для 1 гостя'],
-  '2 комнаты': ['для 2 гостей', 'для 1 гостя'],
-  '3 комнаты': ['для 3 гостей', 'для 2 гостей', 'для 1 гостя'],
-  '100 комнат': ['не для гостей']
+  '1': ['1'],
+  '2': ['2', '1'],
+  '3': ['3', '2', '1'],
+  '100': ['не для гостей']
 };
 
 const validatePlacement = () => placementOptions[guestsField.value].includes(roomsField.value);
 
 const getPlacementErrorMessage = () => {
-  if (guestsField.value === '100 комнат') {
+  if (guestsField.value === '100') {
     return 'Не для гостей';
   }
-  return `${guestsField.value} масимум ${placementOptions[guestsField.value][0]}`;
+  return `
+  ${guestsField.value}
+  ${guestsField.value === '1' ? 'комната' : 'комнаты'} максимум для
+  ${placementOptions[guestsField.value][0]}
+  ${placementOptions[guestsField.value][0] === '1' ? 'гостя' : 'гостей'}
+  `;
 };
 
 pristine.addValidator(guestsField, validatePlacement);
@@ -109,12 +117,42 @@ checkOut.addEventListener('change', () => {
   checkIn.value = checkOut.value;
 });
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const submitButton = form.querySelector('.ad-form__submit');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unblockSubmitButton();
+          form.reset();
+        },
+        () => {
+          showErrorMessage();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
 
 export {
+  setUserFormSubmit,
   disableForm,
   enableForm
 };

@@ -1,8 +1,3 @@
-import {
-  similarUsers,
-  addElementsPopup,
-} from './popup.js';
-
 const startLat = 35.68218;
 const startLtg = 139.75358;
 
@@ -64,12 +59,12 @@ const makePin = (card, popUpCollback) => {
 
 const setMarkers = (cards, popUpCollback) => cards.forEach((card) => makePin(card, popUpCollback));
 
-setMarkers(similarUsers, addElementsPopup);
-
 export {
   mainPinMarker,
   address,
   startLat,
   startLtg,
   map,
+  makePin,
+  setMarkers,
 };
