@@ -59,7 +59,7 @@ const housingType = {
   }
 };
 
-const validationAmount = () => {
+const validateAmount = () => {
   const housingTypeElement = type.value;
   return amountField.value >= housingType[housingTypeElement].min && amountField.value <= housingType[housingTypeElement].max;
 };
@@ -69,8 +69,8 @@ const getAmountErrorMessage = () => {
   return `От ${housingType[housingTypeElement].min} до ${housingType[housingTypeElement].max}`;
 };
 
-pristine.addValidator(amountField, validationAmount, getAmountErrorMessage);
-pristine.addValidator(type, validationAmount);
+pristine.addValidator(amountField, validateAmount, getAmountErrorMessage);
+pristine.addValidator(type, validateAmount);
 
 const onTypeChange = () => {
   const housingTypeElement = type.value;

@@ -1,5 +1,9 @@
+const ACADEMY_API_HOST = 'https://25.javascript.pages.academy';
+const ACADEMY_API_GET_DATA = `${ACADEMY_API_HOST}/keksobooking/data`;
+const ACADEMY_API_SEND = `${ACADEMY_API_HOST}/keksobooking`;
+
 const getData = (onSuccess, onError) => {
-  fetch('https://25.javascript.pages.academy/keksobooking/data')
+  fetch(ACADEMY_API_GET_DATA)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -12,7 +16,7 @@ const getData = (onSuccess, onError) => {
 
 const sendData = (onSuccess, onError, body) => {
   fetch(
-    'https://25.javascript.pages.academy/keksobooking',
+    ACADEMY_API_SEND,
     {
       method: 'POST',
       body,
