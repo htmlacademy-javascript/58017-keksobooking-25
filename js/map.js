@@ -2,6 +2,8 @@ const startLat = 35.68218;
 const startLtg = 139.75358;
 
 const map = L.map('map-canvas');
+const layerGroup = L.layerGroup();
+layerGroup.addTo(map);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -53,11 +55,12 @@ const makePin = (card, popUpCollback) => {
       draggable: false
     }
   );
-  marker.addTo(map);
+  marker.addTo(layerGroup);
   marker.bindPopup(() => popUpCollback(card));
 };
 
 const setMarkers = (cards, popUpCollback) => cards.forEach((card) => makePin(card, popUpCollback));
+const removeMarkers = () => layerGroup.clearLayers();
 
 export {
   mainPinMarker,
@@ -67,4 +70,5 @@ export {
   map,
   makePin,
   setMarkers,
+  removeMarkers,
 };
